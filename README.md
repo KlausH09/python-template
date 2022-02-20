@@ -5,10 +5,10 @@
 
 project_description
 
-## Install it from PyPI
+## Install
 
 ```bash
-pip install project_name
+pip install git+https://github.com/author_name/project_urlname.git@main
 ```
 
 ## Usage
