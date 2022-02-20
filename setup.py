@@ -1,46 +1,48 @@
-"""Python setup.py for python_template package"""
-import io
-import os
+"""Python setup.py for project_name package"""
+from typing import List
+
 from setuptools import find_packages, setup
 
 
-def read(*paths, **kwargs):
-    """Read the contents of a text file safely.
-    >>> read("python_template", "VERSION")
-    '0.1.0'
-    >>> read("README.md")
-    ...
+def read(path: str) -> str:
+    """Read a file
+
+    Args:
+        path (str): path to the file
+
+    Returns:
+        str: content of the file
     """
-
-    content = ""
-    with io.open(
-        os.path.join(os.path.dirname(__file__), *paths),
-        encoding=kwargs.get("encoding", "utf8"),
-    ) as open_file:
-        content = open_file.read().strip()
-    return content
+    with open(path, "r", encoding="utf8") as fd:
+        return fd.read().strip()
 
 
-def read_requirements(path):
-    return [
-        line.strip()
-        for line in read(path).split("\n")
-        if not line.startswith(('"', "#", "-", "git+"))
-    ]
+def read_requirements(path: str) -> List[str]:
+    """Read a requirements file
+
+    Args:
+        path (str): path to the file
+
+    Returns:
+        List[str]: requirements
+    """
+    def is_valid(x: str):
+        return len(x) > 0 and not x.startswith(("#",))
+    return [x.strip() for x in read(path).split("\n") if is_valid(x)]
 
 
 setup(
-    name="python_template",
-    version=read("python_template", "VERSION"),
-    description="Awesome python_template created by KlausH09",
-    url="https://github.com/KlausH09/python-template/",
+    name="project_name",
+    version=read("project_name/VERSION"),
+    description="project_description",
+    url="https://github.com/author_name/project_urlname/",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
-    author="KlausH09",
+    author="author_name",
     packages=find_packages(exclude=["tests", ".github"]),
     install_requires=read_requirements("requirements.txt"),
     entry_points={
-        "console_scripts": ["python_template = python_template.__main__:main"]
+        "console_scripts": ["project_name = project_name.__main__:main"]
     },
-    extras_require={"test": read_requirements("requirements-test.txt")},
+    extras_require={"test": read_requirements("requirements-dev.txt")},
 )

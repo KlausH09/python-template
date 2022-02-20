@@ -6,7 +6,7 @@ from . import BaseClass, base_function  # pragma: no cover
 def main() -> None:  # pragma: no cover
     """
     The main function executes on commands:
-    `python -m python_template` and `$ python_template `.
+    `python -m project_name` and `$ project_name `.
 
     This is your program's entry point.
 
@@ -20,15 +20,15 @@ def main() -> None:  # pragma: no cover
         * Run an application (Flask, FastAPI, Django, etc.)
     """
     parser = argparse.ArgumentParser(
-        description="python_template.",
-        epilog="Enjoy the python_template functionality!",
+        description="project_name.",
+        epilog="Enjoy the project_name functionality!",
     )
     # This is required positional argument
     parser.add_argument(
         "name",
         type=str,
         help="The username",
-        default="KlausH09",
+        default="author_name",
     )
     # This is optional named argument
     parser.add_argument(
